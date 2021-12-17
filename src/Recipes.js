@@ -40,18 +40,18 @@ class Recipes extends Component {
       return (
         <div>
           <h2 className="recipe"> Baking </h2>
-          {this.list.map((a)=>{
+          {this.list.map((food)=>{
                return(
                  
                 <Item.Group divided>
                 <Item>
-                  <Item.Image size="tiny" src={a.src}/>
+                  <Item.Image size="tiny" src={food.src}/>
                   <Item.Content>
-                    <Item.Header as="a" className="header-styles">{a.head}</Item.Header>
+                    <Item.Header as="a" className="header-styles">{food.head}</Item.Header>
                     <Item.Description verticalAlign="middle">
-                     {a.desc}
+                     {food.desc}
                     </Item.Description>
-                    <Button primary  floated="right" onClick={()=>{this.reciepeClick(a.id)}}>
+                    <Button primary  floated="right" onClick={()=>{this.reciepeClick(food.id)}}>
                       See recipe
                       <Icon name="right chevron"/>
                     </Button>
