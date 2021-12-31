@@ -1,7 +1,6 @@
-import logo from "./logo.svg";
-import "./App.css";
+import "./styles/App.scss";
 import React from "react";
-import { FaHeart, FaCookieBite } from "react-icons/fa";
+import { FaCookieBite } from "react-icons/fa";
 import { Route, Routes, Link } from "react-router-dom";
 import {
   Button,
@@ -14,19 +13,18 @@ import {
   Item,
   Icon,
   Divider,
-  Form,
   Segment,
 } from "semantic-ui-react";
 import styled, { keyframes } from "styled-components";
 import { bounce } from "react-animations";
 import { Component } from "react";
-import Navbar from "./NavBar";
-import Login from "./Login.js";
-import Recipes from "./Recipes.js";
-import withNavigate from "./withNavigate";
-import Display from "./seeRecipes";
+import Login from "./components/login/Login.js";
+import Recipes from "./components/recipes/Recipes.js";
+import Display from "./components/recipes/ViewRecipe";
+import Discussion from "./components/discussion/Discussion";
+import  Home  from "./components/home/Home";
 
-const Bounce = styled.div`
+export const Bounce = styled.div`
   animation: 2s ${keyframes`${bounce}`} infinite;
 `;
 
@@ -52,18 +50,18 @@ class App extends Component {
     )
       .then((res) => res.json())
       .then((res) => {
-        this.props.navigate("/", { replace: true });
+       
         this.setState({ mealsRes: res.meals || [], notFound: !res.meals });
       });
+      this.props.navigate("/", { replace: true });
   };
 
   render() {
     return (
       <div className="maindiv">
         <Container textAlign="center" className="box">
-          <Header as="h1">
-            Welcome
-            <FaCookieBite icon="fa-regular fa-cookie-bite" />
+          <Header as="h1" className="header">
+            Buttery Treasures <FaCookieBite icon="fa-regular fa-cookie-bite" />
           </Header>
           <Input
             type="text"
@@ -94,6 +92,14 @@ class App extends Component {
             >
               Recipes
             </Menu.Item>
+
+            <Menu.Item
+                as={Link}
+                to="/community"
+                name="Discuss"
+                onClick={this.handleClick}
+            >Discuss</Menu.Item>
+            
             <Menu.Menu position="right">
               <Menu.Item
                 as={Link}
@@ -102,19 +108,7 @@ class App extends Component {
                 onClick={this.handleClick}
               ></Menu.Item>
             </Menu.Menu>
-          </Menu>
-
-          <Bounce>
-            <FaHeart
-              style={{
-                color: "red",
-                fontSize: "25px",
-                display: "flex",
-                justifyContent: "center",
-              }}
-            />
-          </Bounce>
-
+          </Menu>       
           <Routes>
             <Route
               path="/"
@@ -128,68 +122,12 @@ class App extends Component {
             <Route path="/recipes" element={<Recipes />} />
             <Route path="/login" element={<Login />} />
             <Route path="/recipes/:id" element={<Display />} />
+            <Route path="/community" element={<Discussion />}/>
           </Routes>
         </Container>
       </div>
     );
   }
 }
-var Home = function (props) {
-  let { notFound } = props;
-  if (notFound) {
-    return (
-      <div className="home">
-        <p>
-          Welcome to Buttery Treasures! Here, we offer you variety of food
-          delicacies that you can easily make at your home
-        </p>
 
-        <ul>Sorry! This is not available with us :(</ul>
-
-        <Container className="comment-box">
-          <Header as="h3" style={{ color: "chocolate" }} dividing>
-            {" "}
-            Leave us a feeback!!
-          </Header>
-          <Form reply>
-            <Form.TextArea />
-            <Button secondary floated="right">
-              Add a comment
-            </Button>
-          </Form>
-        </Container>
-      </div>
-    );
-  }
-  return (
-    <div className="home">
-      Welcome to Buttery Treasures! Here, we offer you variety of food
-      delicacies that you can easily make at your home
-      {props.meal.map((sen) => (
-        <div className="instruct">
-          <br></br>
-          <p style={{ fontWeight: "bold", color: "blueviolet" }}>
-            {sen.strMeal}
-          </p>
-          <br></br> Instructions<br></br>
-          {sen.strInstructions}
-          <br></br>
-          <Container className="comment-box">
-            <Header as="h3" style={{ color: "chocolate" }} dividing>
-              {" "}
-              Leave us a feeback!!
-            </Header>
-            <Form reply>
-              <Form.TextArea />
-              <Button secondary floated="right">
-                Add a comment
-              </Button>
-            </Form>
-          </Container>
-        </div>
-      ))}
-    </div>
-  );
-};
-
-export default withNavigate(App);
+export default App

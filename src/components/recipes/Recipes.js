@@ -1,5 +1,4 @@
-import logo from "./logo.svg";
-import "./App.css";
+import "../../styles/App.scss";
 import React from "react";
 import { Route, Routes, Link } from "react-router-dom";
 import {
@@ -13,13 +12,10 @@ import {
   Item,Icon,Divider
 } from "semantic-ui-react";
 import { Component } from "react";
-import Navbar from "./NavBar";
-import Login from "./Login.js"
-import seeRecipes from './seeRecipes.js'
-import cakerain from "./cakerain.jpeg"
-import brownie from "./Homemade-Boxed-Brownies-Thumbnail1-scaled.jpg"
-import chocoo from "./chocolate-chip-cookies.jpeg"
-import withNavigate from "./withNavigate";
+import cakerain from "../../images/cakerain.jpeg"
+import brownie from "../../images/Homemade-Boxed-Brownies-Thumbnail1-scaled.jpg"
+import chocoo from "../../images/chocolate-chip-cookies.jpeg"
+import withNavigate from "../home/withNavigate";
 
 class Recipes extends Component {
   list=[{head:"Rainbow Cake",desc:" A colorful cake which is everyone's favourite",id:1,src:cakerain},

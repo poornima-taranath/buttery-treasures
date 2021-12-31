@@ -1,5 +1,5 @@
 import { NUMBER_BINARY_OPERATORS } from "@babel/types";
-import "./App.css";
+import "../../styles/App.scss";
 import {Label,Input,Button,Divider,Container} from "semantic-ui-react"
 export default function Login() {
     return (
